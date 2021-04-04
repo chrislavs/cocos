@@ -596,6 +596,10 @@ class Director(event.EventDispatcher):
         """
         # physical view size
         pw, ph = width, height
+        viewportw, viewporth = self.window.get_viewport_size()
+        if viewportw > pw:
+            pw = viewportw
+            ph = viewporth
         # virtual (desired) view size
         vw, vh = self.get_window_size()
         # desired aspect ratio
