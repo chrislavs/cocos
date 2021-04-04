@@ -44,5 +44,5 @@ jobs:
     - name: Test with pytest
       run: |
           pytest -vv test_tiles.py
-          pytest -vv test_actions.py
+          pytest -vv test_acceldeccel.py
       working-directory: utest
