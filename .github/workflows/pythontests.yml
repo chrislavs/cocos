@@ -43,6 +43,7 @@ jobs:
         # flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-          pytest -vv test_tiles.py
-          pytest -vv test_acceldeccel.py
+          py.test [flags] test_file.py
+          #pytest -vv test_tiles.py
+          #pytest -vv test_acceldeccel.py
       working-directory: utest
