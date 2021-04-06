@@ -1,0 +1,6 @@
+cocos2d~=0.6.9
+pyglet~=1.5.15
+six~=1.15.0
+pytest~=6.2.3
+py~=1.10.0
+setuptools~=54.2.0
