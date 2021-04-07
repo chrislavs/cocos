@@ -22,7 +22,7 @@ class _SDL_version(Structure):
 
     def __repr__(self):
         return '%d.%d.%d' % \
-            (self.major, self.minor, self.patch)
+               (self.major, self.minor, self.patch)
 
 
 def _version_parts(v):
@@ -55,12 +55,16 @@ def _platform_library_name(library):
 class SDL_DLL:
     def __init__(self, library_name, version_function_name, version=None):
         self.library_name = library_name
-        if sys.platform == 'win32':
+        if sys.platform == 'win32' :
             try:
+
                 self._load_library_win()
+
             except WindowsError:
                 raise ImportError(('Dynamic library "%s" was not found' %
                                    library_name))
+
+
         else:
             self._load_library_nix(version)
 
@@ -139,7 +143,6 @@ class SDL_DLL:
                  error_return=None,
                  since=None):
         """Construct a wrapper function for ctypes.
-
         :Parameters:
             `name`
                 The name of the function as it appears in the shared library.
@@ -175,7 +178,6 @@ class SDL_DLL:
                 loaded version predates it, a placeholder function that
                 raises `SDL_NotImplementedError` will be returned instead.
                 Set to None if the function is in all versions of SDL.
-
         """
         # Check for version compatibility first
         if since and not self.version_compatible(since):
@@ -185,6 +187,7 @@ class SDL_DLL:
                     '%s requires %s %s; currently using version %s' %
                     (name, self.library_name, _version_string(since),
                      _version_string(self._version)))
+
             if args:
                 _f._args = args
             _f.__doc__ = doc
@@ -257,9 +260,13 @@ class SDL_DLL:
             _f.__name__ = name
         return _f
 
+
 # Shortcuts to the SDL core library
-_dll = SDL_DLL('SDL', 'SDL_Linked_Version', '1.2')
-version_compatible = _dll.version_compatible
-assert_version_compatible = _dll.assert_version_compatible
-private_function = _dll.private_function
-function = _dll.function
+if True:
+    _dll = SDL_DLL('SDL', 'SDL_Linked_Version', '1.2')
+    version_compatible = _dll.version_compatible
+    assert_version_compatible = _dll.assert_version_compatible
+    private_function = _dll.private_function
+    function = _dll.function
+
+    print(_dll)
