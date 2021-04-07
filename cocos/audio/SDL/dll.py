@@ -101,7 +101,7 @@ class SDL_DLL:
         library = find_library(self.library_name)
         if library is None and version is not None:
             # try to lookup with version. this is useful in linux, sometimes
-            # there is'nt a libSDL.so but a libSDL-1.2.so
+            # there isn't a libSDL.so but a libSDL-1.2.so
             library = find_library("%s-%s" % (self.library_name, version))
         if not library:
             raise ImportError('Dynamic library "%s" was not found' %
@@ -235,7 +235,7 @@ class SDL_DLL:
                 result = func(*args, **kwargs)
                 if result == error_return:
                     import cocos.audio.SDL.error
-                    raise cocos.audio.SDL.error.SDL_Exception(cocus.audio.SDL.error.SDL_GetError())
+                    raise cocos.audio.SDL.error.SDL_Exception(cocos.audio.SDL.error.SDL_GetError())
                 return result
         elif require_return:
             # Construct a function which returns the usual result, or returns
@@ -244,7 +244,7 @@ class SDL_DLL:
                 result = func(*args, **kwargs)
                 if not result:
                     import cocos.audio.SDL.error
-                    raise cocos.audio.SDL.error.SDL_Exception(cocos.audio.SDL.error.SDL_GetError())
+                    raise cocos.audio.SDL.error.SDL_Exception(cocos.audio.SDL.error.SDL_GetError().decode())
                 return result
         else:
             # Construct a function which returns the C function's return

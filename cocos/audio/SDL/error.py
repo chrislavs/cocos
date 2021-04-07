@@ -16,6 +16,7 @@ class SDL_Exception(Exception):
 
     The message is as returned by `SDL_GetError`.
     """
+
     def __init__(self, message):
         self.message = message
 
@@ -27,6 +28,7 @@ class SDL_NotImplementedError(NotImplementedError):
     """Exception raised when the available SDL library predates the
     requested function."""
     pass
+
 
 SDL_SetError = dll.function('SDL_SetError',
                             '''Set the static error string.
