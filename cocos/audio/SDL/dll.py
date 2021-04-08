@@ -235,7 +235,7 @@ class SDL_DLL:
                 result = func(*args, **kwargs)
                 if result == error_return:
                     import cocos.audio.SDL.error
-                    raise cocos.audio.SDL.error.SDL_Exception(cocus.audio.SDL.error.SDL_GetError())
+                    raise cocos.audio.SDL.error.SDL_Exception(cocos.audio.SDL.error.SDL_GetError())
                 return result
         elif require_return:
             # Construct a function which returns the usual result, or returns

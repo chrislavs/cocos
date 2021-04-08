@@ -35,7 +35,7 @@ ____________________________________
 audio support by SDL
 ____________________
 
-    + in Windows, pygame http://www.pygame.org
+    + in Windows, pygame 1.9.6 http://www.pygame.org
     + in unix-like OSes libraries sdl 1.2 and sdl-mixer 1.2; in debian/ubuntu their packages are libsdl1.2 and libsdl-mixer1.2
     + in Mac, there's no confirmed info. Should be similar to unix.
 
