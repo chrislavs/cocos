@@ -300,7 +300,8 @@ class Director(event.EventDispatcher):
         width = kwargs.get('width', self.window.width)
         height = kwargs.get('height', self.window.height)
         self.resizable = kwargs.get('resizable', False)
- 
+
+
         if self.autoscale:
             self._window_virtual_width = width
             self._window_virtual_height = height
@@ -335,6 +336,7 @@ class Director(event.EventDispatcher):
         # pyglet 1.4 requires to keep a reference to an event handler instance
         self._default_event_handler = DefaultHandler()
         self.window.push_handlers(self._default_event_handler)
+
 
         # Environment variable COCOS2d_NOSOUND=1 overrides audio settings
         if getenv('COCOS2D_NOSOUND', None) == '1' or audio_backend == 'pyglet':
@@ -523,7 +525,7 @@ class Director(event.EventDispatcher):
         If director.init(...) was called with autoscale=True it will return
         a virtuel size, the same as the size set in director.init(...)
 
-        If director.init(...) was called with autoscale=Fakse it will return
+        If director.init(...) was called with autoscale=False it will return
         the physical size of the window.
         
         Usually you don't want to know the current window size, because the
@@ -537,9 +539,12 @@ class Director(event.EventDispatcher):
         :rtype: (x,y)
         :returns: The size of the window when it was created
         """
+
+        return self._usable_width, self._usable_height
+
         # this method will be replaced by _get_window_size_autoscale or
         # _get_window_size_no_autoscale when director.init(...) is called
-        raise NotImplemented
+        # raise NotImplemented
 
     def _get_window_size_autoscale(self):
         return self._window_virtual_width, self._window_virtual_height
