@@ -5,4 +5,4 @@ pytest~=6.2.3
 py~=1.10.0
 setuptools~=54.2.0
 constants~=0.6.0
-pygame
+pygame~=1.9.6
