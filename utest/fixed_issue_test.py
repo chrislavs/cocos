@@ -2,7 +2,7 @@ import os
 
 import pygame
 import sys
-
+#
 sys.path.insert(0, 'pyglet_mockup1')
 import pyglet
 
