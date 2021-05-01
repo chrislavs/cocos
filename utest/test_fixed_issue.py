@@ -14,16 +14,18 @@ director.init()
 class Test_Director(object):
 
     def test_default_windows_size(self):
-        vw, vh = 0, 0
-        viewportw, viewporth = 1200, 1440
-        if viewportw > director.window.width:
-            vw, vh = viewportw, viewporth
-        window = vw, vh
+        window = 0
+        if sys.platform == 'darwin':
+            viewportw, viewporth = 1200, 1440
+            if viewportw > director.window.width:
+                vw, vh = viewportw, viewporth
+                window = vw, vh
+        else:
+            window = director.window.width, director.window.height
         print(window)
         assert director.window.width == 640
         assert director.window.height == 480
         assert director.scaled_resize_window(director.window.width, director.window.width) == window
-
 
 def test_pygame_version():
     v = pygame.__version__
