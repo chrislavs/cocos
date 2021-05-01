@@ -1,11 +1,9 @@
 import pygame
 import sys
 
-from pygame.sprite import Sprite
-
 sys.path.insert(0, 'pyglet_mockup1')
 import pyglet
-__all__ = ['Sprite', ]  # Sprite class
+
 assert pyglet.mock_level == 1
 
 from cocos.director import director
