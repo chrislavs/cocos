@@ -118,6 +118,7 @@ from __future__ import division, print_function, unicode_literals
 __docformat__ = 'restructuredtext'
 
 import sys
+import os
 from os import getenv
 import warnings
 
@@ -300,12 +301,12 @@ class Director(event.EventDispatcher):
         width = kwargs.get('width', self.window.width)
         height = kwargs.get('height', self.window.height)
         self.resizable = kwargs.get('resizable', False)
- 
+
         if self.autoscale:
             self._window_virtual_width = width
             self._window_virtual_height = height
             self._window_virtual_aspect = (
-                self._window_virtual_width / float(self._window_virtual_height))
+                    self._window_virtual_width / float(self._window_virtual_height))
             self._offset_x = 0
             self._offset_y = 0
 
@@ -543,9 +544,9 @@ class Director(event.EventDispatcher):
 
     def _get_window_size_autoscale(self):
         return self._window_virtual_width, self._window_virtual_height
-        
+
     def _get_window_size_no_autoscale(self):
-        return self.window.width, self.window.height 
+        return self.window.width, self.window.height
 
     def get_virtual_coordinates(self, x, y):
         "placeholder, will be replaced"
@@ -595,20 +596,33 @@ class Director(event.EventDispatcher):
                 New height
         """
         # physical view size
-        pw, ph = width, height
-        viewportw, viewporth = self.window.get_viewport_size()
-        if viewportw > pw:
-            pw = viewportw
-            ph = viewporth
+        # print(self.window.get_viewport_size())
+        pw, ph = 0, 0
+        vw, vh = 0, 0
+        if sys.platform == 'darwin':
+            viewportw, viewporth = 1200, 1440
+            viewportw1, viewporth1 = 2880, 1820
+            if viewportw > width:
+                pw = viewportw
+                ph = viewporth
+                vw, vh = viewportw, viewporth
+            elif viewportw1 > width:
+                pw = viewportw1
+                ph = viewporth1
+                vw, vh = viewportw1, viewporth1
+        else:
+            pw, ph = width, height
+            vw, vh = self.get_window_size()
+
         # virtual (desired) view size
-        vw, vh = self.get_window_size()
+
         # desired aspect ratio
         v_ar = vw / float(vh)
         # usable width, heigh
         uw = int(min(pw, ph * v_ar))
         uh = int(min(ph, pw / v_ar))
-        ox = (pw-uw) // 2
-        oy = (ph-uh) // 2
+        ox = (pw - uw) // 2
+        oy = (ph - uh) // 2
         self._offset_x = ox
         self._offset_y = oy
         self._usable_width = uw
@@ -679,10 +693,10 @@ class Director(event.EventDispatcher):
         gl.glMatrixMode(gl.GL_MODELVIEW)
 
         gl.glLoadIdentity()
-        gl.gluLookAt(vw / 2.0, vh / 2.0, vh / 1.1566,   # eye
-                  vw / 2.0, vh / 2.0, 0,             # center
-                  0.0, 1.0, 0.0                      # up vector
-                  )
+        gl.gluLookAt(vw / 2.0, vh / 2.0, vh / 1.1566,  # eye
+                     vw / 2.0, vh / 2.0, 0,  # center
+                     0.0, 1.0, 0.0  # up vector
+                     )
 
     def set_projection2D(self):
         """Sets a 2D projection (ortho) covering all the window"""
@@ -713,6 +727,7 @@ class Director(event.EventDispatcher):
             gl.glHint(gl.GL_PERSPECTIVE_CORRECTION_HINT, gl.GL_NICEST)
         else:
             gl.glDisable(gl.GL_DEPTH_TEST)
+
 
 event_loop = pyglet.app.event_loop
 if not hasattr(event_loop, "event"):

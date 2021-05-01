@@ -10,7 +10,7 @@ __version__ = '$Id: $'
 import cocos.audio.SDL as SDL
 
 from ctypes import *
-import dll
+from . import dll
 import cocos.audio.SDL as SDL
 
 SDL_GetTicks = dll.function(

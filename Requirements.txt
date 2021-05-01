@@ -5,3 +5,5 @@ py~=1.10.0
 setuptools~=54.2.0
 pyglet~=1.5.15
 constants~=0.6.0
+pygame~=1.9.6
+

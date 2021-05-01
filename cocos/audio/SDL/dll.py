@@ -55,16 +55,13 @@ def _platform_library_name(library):
 class SDL_DLL:
     def __init__(self, library_name, version_function_name, version=None):
         self.library_name = library_name
-        if sys.platform == 'win32' :
+        if sys.platform == 'win32':
             try:
-
                 self._load_library_win()
 
             except WindowsError:
                 raise ImportError(('Dynamic library "%s" was not found' %
                                    library_name))
-
-
         else:
             self._load_library_nix(version)
 
@@ -99,6 +96,7 @@ class SDL_DLL:
 
     def _load_library_nix(self, version):
         library = find_library(self.library_name)
+        print(library)
         if library is None and version is not None:
             # try to lookup with version. this is useful in linux, sometimes
             # there isn't a libSDL.so but a libSDL-1.2.so
@@ -268,5 +266,3 @@ if True:
     assert_version_compatible = _dll.assert_version_compatible
     private_function = _dll.private_function
     function = _dll.function
-
-    print(_dll)
