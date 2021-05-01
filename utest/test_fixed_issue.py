@@ -3,6 +3,7 @@ import sys
 
 sys.path.insert(0, 'pyglet_mockup1')
 import pyglet
+
 assert pyglet.mock_level == 1
 
 from cocos.director import director
