@@ -117,6 +117,7 @@ from __future__ import division, print_function, unicode_literals
 
 __docformat__ = 'restructuredtext'
 
+
 import sys
 from os import getenv
 import warnings
@@ -130,8 +131,6 @@ import cocos
 import cocos.audio
 import cocos.custom_clocks
 import cocos.fps
-
-
 
 if hasattr(sys, 'is_cocos_sphinx') and sys.is_cocos_sphinx:
     __all__ = ['director', 'Director', 'DefaultHandler']
@@ -644,7 +643,8 @@ class Director(event.EventDispatcher):
             pyglet.clock.schedule(self.post_resize_adjust)
 
         # dismiss the pyglet BaseWindow default 'on_resize' handler
-        return pyglet.event.EVENT_HANDLED
+        window = vw, vh
+        return window
 
     def post_resize_adjust(self, _):
         "resize to eliminate the filling bands introduced"
