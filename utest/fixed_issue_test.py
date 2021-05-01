@@ -1,13 +1,7 @@
 import pygame
-import os
-# from __future__ import division, print_function, unicode_literals
-# set the desired pyglet mockup
 import sys
-
-from pyglet.window.cocoa import CocoaWindow
-
-sys.path.insert(0, 'pyglet_mockup1')
-
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 from cocos.director import director
 
 director.init()
