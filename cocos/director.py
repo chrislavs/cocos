@@ -595,9 +595,23 @@ class Director(event.EventDispatcher):
                 New height
         """
         # physical view size
-        pw, ph = width, height
-        # virtual (desired) view size
-        vw, vh = self.get_window_size()
+        pw, ph = 0, 0
+        vw, vh = 0, 0
+        if sys.platform == 'darwin':
+            viewportw, viewporth = 1200, 1440
+            viewportw1, viewporth1 = 2880, 1800
+            if viewportw > width:
+                pw = viewportw
+                ph = viewporth
+                vw, vh = viewportw, viewporth
+            elif viewportw1 > width:
+                pw = viewportw1
+                ph = viewporth1
+                vw, vh = viewportw1, viewporth1
+        else:
+            pw, ph = width, height
+            vw, vh = self.get_window_size()
+            print(self.get_window_size())
         # desired aspect ratio
         v_ar = vw / float(vh)
         # usable width, heigh
