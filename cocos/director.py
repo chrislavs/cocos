@@ -131,6 +131,8 @@ import cocos.audio
 import cocos.custom_clocks
 import cocos.fps
 
+
+
 if hasattr(sys, 'is_cocos_sphinx') and sys.is_cocos_sphinx:
     __all__ = ['director', 'Director', 'DefaultHandler']
 else:
