@@ -44,7 +44,7 @@ try:
 except ImportError:
     audio._working = False
 
-from . import actions
+import actions
 
 
 class Effect(object):

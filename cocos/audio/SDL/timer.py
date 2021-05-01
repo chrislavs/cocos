@@ -10,6 +10,7 @@ __version__ = '$Id: $'
 import cocos.audio.SDL as SDL
 
 from ctypes import *
+
 from . import dll
 import cocos.audio.SDL as SDL
 
