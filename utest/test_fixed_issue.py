@@ -1,7 +1,8 @@
 import pygame
 import sys
-
-sys.path.insert(0, 'pyglet_mockup1')
+import os
+sys.path.insert(0,'pyglet_mockup1')
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 import pyglet
 
 assert pyglet.mock_level == 1
