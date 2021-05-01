@@ -46,5 +46,5 @@ jobs:
     - name: Test with pytest
       run: |
           #pytest
-          pytest -vv fixed_issue_test.py
+          pytest -vv test_fixed_issue.py
       working-directory: utest
