@@ -6,7 +6,7 @@ import pyglet
 
 assert pyglet.mock_level == 1
 
-# from cocos.director import director
+from cocos.director import director
 #
 # director.init()
 
