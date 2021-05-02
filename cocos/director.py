@@ -117,6 +117,7 @@ from __future__ import division, print_function, unicode_literals
 
 __docformat__ = 'restructuredtext'
 
+
 import sys
 from os import getenv
 import warnings
@@ -300,8 +301,7 @@ class Director(event.EventDispatcher):
         width = kwargs.get('width', self.window.width)
         height = kwargs.get('height', self.window.height)
         self.resizable = kwargs.get('resizable', False)
-
-
+ 
         if self.autoscale:
             self._window_virtual_width = width
             self._window_virtual_height = height
@@ -336,7 +336,6 @@ class Director(event.EventDispatcher):
         # pyglet 1.4 requires to keep a reference to an event handler instance
         self._default_event_handler = DefaultHandler()
         self.window.push_handlers(self._default_event_handler)
-
 
         # Environment variable COCOS2d_NOSOUND=1 overrides audio settings
         if getenv('COCOS2D_NOSOUND', None) == '1' or audio_backend == 'pyglet':
@@ -525,7 +524,7 @@ class Director(event.EventDispatcher):
         If director.init(...) was called with autoscale=True it will return
         a virtuel size, the same as the size set in director.init(...)
 
-        If director.init(...) was called with autoscale=False it will return
+        If director.init(...) was called with autoscale=Fakse it will return
         the physical size of the window.
         
         Usually you don't want to know the current window size, because the
@@ -539,12 +538,9 @@ class Director(event.EventDispatcher):
         :rtype: (x,y)
         :returns: The size of the window when it was created
         """
-
-        return self._usable_width, self._usable_height
-
         # this method will be replaced by _get_window_size_autoscale or
         # _get_window_size_no_autoscale when director.init(...) is called
-        # raise NotImplemented
+        raise NotImplemented
 
     def _get_window_size_autoscale(self):
         return self._window_virtual_width, self._window_virtual_height
@@ -600,12 +596,32 @@ class Director(event.EventDispatcher):
                 New height
         """
         # physical view size
-        pw, ph = width, height
-        # virtual (desired) view size
-        vw, vh = self.get_window_size()
+        pw, ph = 0,0
+        vw, vh = 0,0
+        # viewportw, viewporth = self.window.get_viewport_size()
+        # if viewportw > width:
+        #     pw = viewportw
+        #     ph = viewporth
+        # vw, vh = self.window.get_viewport_size()
+        #
+        if sys.platform == 'darwin':
+            viewportw, viewporth = 1200, 1440
+            viewportw1, viewporth1 = 2880, 1800
+            if viewportw > width:
+                pw = viewportw
+                ph = viewporth
+                vw, vh = viewportw, viewporth
+            elif viewportw1 > width:
+                pw = viewportw1
+                ph = viewporth1
+                vw, vh = viewportw1, viewporth1
+        else:
+            pw, ph = width, height
+            vw, vh = self.get_window_size()
+
         # desired aspect ratio
         v_ar = vw / float(vh)
-        # usable width, heigh
+        # usable width, height
         uw = int(min(pw, ph * v_ar))
         uh = int(min(ph, pw / v_ar))
         ox = (pw-uw) // 2
@@ -622,12 +638,13 @@ class Director(event.EventDispatcher):
 
         self.dispatch_event("on_cocos_resize", self._usable_width, self._usable_height)
 
-        # eliminate ugly padding bands used to keep the aspect ratio truogh resizes
+        # eliminate ugly padding bands used to keep the aspect ratio trough resizes
         if self.resizable and (ox > 1 or oy > 1):
             pyglet.clock.schedule(self.post_resize_adjust)
 
         # dismiss the pyglet BaseWindow default 'on_resize' handler
-        return pyglet.event.EVENT_HANDLED
+        window = vw, vh
+        return window
 
     def post_resize_adjust(self, _):
         "resize to eliminate the filling bands introduced"

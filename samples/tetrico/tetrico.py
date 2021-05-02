@@ -3,9 +3,6 @@ from __future__ import division, print_function, unicode_literals
 # This code is so you can run the samples without installing the package
 import sys
 import os
-
-from cocos.director import director
-
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../..'))
 
 from cocos.director import director
@@ -131,7 +128,7 @@ class ScoresLayer( ColorLayer):
 
 class OptionsMenu( Menu ):
     def __init__(self):
-        super( OptionsMenu, self).__init__('menu')
+        super( OptionsMenu, self).__init__('TETRICO') 
         self.select_sound = soundex.load('move.mp3')
 
         # you can override the font that will be used for the title and the items
@@ -172,7 +169,6 @@ class OptionsMenu( Menu ):
         items.append( ToggleMenuItem('Show FPS:', self.on_show_fps, director.show_FPS) )
         items.append( MenuItem('Fullscreen', self.on_fullscreen) )
         items.append( MenuItem('Back', self.on_quit) )
-        items.append( MenuItem("get window size", self.on_get_window_size, director._usable_width, director._usable_height))
         self.create_menu( items, shake(), shake_back() )
 
     def on_fullscreen( self ):
@@ -191,10 +187,6 @@ class OptionsMenu( Menu ):
     def on_music_volume( self, idx ):
         vol = idx / 10.0
         soundex.music_volume( vol )
-
-    def on_get_window_size(self, width, height):
-        print(width)
-        print(height)
 
 class MainMenu( Menu ):
 
@@ -252,7 +244,7 @@ if __name__ == "__main__":
     pyglet.resource.reindex()
     font.add_directory('data')
 
-    director.init( autoscale=True, width=600, height=720 )
+    director.init( resizable=False, width=600, height=720 )
     scene = Scene()
     scene.add( MultiplexLayer(
                     MainMenu(), 
