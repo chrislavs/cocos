@@ -22,7 +22,7 @@ class _SDL_version(Structure):
 
     def __repr__(self):
         return '%d.%d.%d' % \
-            (self.major, self.minor, self.patch)
+               (self.major, self.minor, self.patch)
 
 
 def _version_parts(v):
@@ -58,6 +58,7 @@ class SDL_DLL:
         if sys.platform == 'win32':
             try:
                 self._load_library_win()
+
             except WindowsError:
                 raise ImportError(('Dynamic library "%s" was not found' %
                                    library_name))
@@ -95,9 +96,10 @@ class SDL_DLL:
 
     def _load_library_nix(self, version):
         library = find_library(self.library_name)
+        print(library)
         if library is None and version is not None:
             # try to lookup with version. this is useful in linux, sometimes
-            # there is'nt a libSDL.so but a libSDL-1.2.so
+            # there isn't a libSDL.so but a libSDL-1.2.so
             library = find_library("%s-%s" % (self.library_name, version))
         if not library:
             raise ImportError('Dynamic library "%s" was not found' %
@@ -139,7 +141,6 @@ class SDL_DLL:
                  error_return=None,
                  since=None):
         """Construct a wrapper function for ctypes.
-
         :Parameters:
             `name`
                 The name of the function as it appears in the shared library.
@@ -175,7 +176,6 @@ class SDL_DLL:
                 loaded version predates it, a placeholder function that
                 raises `SDL_NotImplementedError` will be returned instead.
                 Set to None if the function is in all versions of SDL.
-
         """
         # Check for version compatibility first
         if since and not self.version_compatible(since):
@@ -185,6 +185,7 @@ class SDL_DLL:
                     '%s requires %s %s; currently using version %s' %
                     (name, self.library_name, _version_string(since),
                      _version_string(self._version)))
+
             if args:
                 _f._args = args
             _f.__doc__ = doc
@@ -232,7 +233,7 @@ class SDL_DLL:
                 result = func(*args, **kwargs)
                 if result == error_return:
                     import cocos.audio.SDL.error
-                    raise cocos.audio.SDL.error.SDL_Exception(cocus.audio.SDL.error.SDL_GetError())
+                    raise cocos.audio.SDL.error.SDL_Exception(cocos.audio.SDL.error.SDL_GetError())
                 return result
         elif require_return:
             # Construct a function which returns the usual result, or returns
@@ -241,7 +242,7 @@ class SDL_DLL:
                 result = func(*args, **kwargs)
                 if not result:
                     import cocos.audio.SDL.error
-                    raise cocos.audio.SDL.error.SDL_Exception(cocos.audio.SDL.error.SDL_GetError())
+                    raise cocos.audio.SDL.error.SDL_Exception(cocos.audio.SDL.error.SDL_GetError().decode())
                 return result
         else:
             # Construct a function which returns the C function's return
@@ -257,9 +258,11 @@ class SDL_DLL:
             _f.__name__ = name
         return _f
 
+
 # Shortcuts to the SDL core library
-_dll = SDL_DLL('SDL', 'SDL_Linked_Version', '1.2')
-version_compatible = _dll.version_compatible
-assert_version_compatible = _dll.assert_version_compatible
-private_function = _dll.private_function
-function = _dll.function
+if True:
+    _dll = SDL_DLL('SDL', 'SDL_Linked_Version', '1.2')
+    version_compatible = _dll.version_compatible
+    assert_version_compatible = _dll.assert_version_compatible
+    private_function = _dll.private_function
+    function = _dll.function

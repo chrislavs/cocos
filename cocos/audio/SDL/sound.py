@@ -42,6 +42,7 @@ import cocos.audio.SDL.array
 import cocos.audio.SDL.dll
 import cocos.audio.SDL.rwops
 import cocos.audio.SDL.version
+
 SDL = cocos.audio.SDL
 
 _dll = SDL.dll.SDL_DLL('SDL_sound', None, '1.2')
@@ -66,6 +67,7 @@ class Sound_Version(Structure):
     def __repr__(self):
         return '%d.%d.%d' % (self.major, self.minor, self.patch)
 
+
 _Sound_GetLinkedVersion = _dll.private_function(
     'Sound_GetLinkedVersion',
     arg_types=[POINTER(Sound_Version)],
@@ -80,6 +82,7 @@ def Sound_GetLinkedVersion():
     version = Sound_Version()
     _Sound_GetLinkedVersion(byref(version))
     return version
+
 
 # Fill in non-standard linked version now, so "since" declarations can work
 _dll._version = SDL.dll._version_parts(Sound_GetLinkedVersion())
@@ -177,6 +180,7 @@ class Sound_Sample(Structure):
             return SDL.array.SDL_array(self._buffer, self.buffer_size, c_ubyte)
         raise AttributeError(name)
 
+
 Sound_Init = _dll.function(
     'Sound_Init',
     '''Initialize SDL_sound.
@@ -238,6 +242,7 @@ def Sound_AvailableDecoders():
         decoders.append(decoder_p[i].contents)
         i += 1
     return decoders
+
 
 Sound_GetError = _dll.function(
     'Sound_GetError',
@@ -373,6 +378,7 @@ def Sound_NewSampleFromMem(data, ext, desired, bufferSize):
     """
     ref, data = SDL.array.to_ctypes(data, len(data), c_ubyte)
     return _Sound_NewSampleFromMem(data, len(data), ext, desired, bufferSize)
+
 
 Sound_NewSampleFromFile = _dll.function(
     'Sound_NewSampleFromFile',

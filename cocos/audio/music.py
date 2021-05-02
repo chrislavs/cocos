@@ -38,6 +38,7 @@ Scene class
 """
 
 from cocos import audio
+
 try:
     import cocos.audio.pygame.music
 except ImportError:
@@ -70,6 +71,7 @@ def set_control(name):
     global control
     assert name in ('dummy', 'pygame')
     control = globals()["_" + name]
+
 
 _dummy = DummyMusicControl()
 _pygame = MusicControl()
