@@ -96,7 +96,6 @@ class SDL_DLL:
 
     def _load_library_nix(self, version):
         library = find_library(self.library_name)
-        print(library)
         if library is None and version is not None:
             # try to lookup with version. this is useful in linux, sometimes
             # there isn't a libSDL.so but a libSDL-1.2.so
