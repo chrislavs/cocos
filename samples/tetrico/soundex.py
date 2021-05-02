@@ -4,9 +4,11 @@
 #
 from __future__ import division, print_function, unicode_literals
 import os
+import constants
 
-from constants import MUSIC, SOUND
 import pyglet
+MUSIC = True
+SOUND = True
 
 try:
     import pyglet_ffmpeg2

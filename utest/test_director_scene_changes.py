@@ -2,20 +2,24 @@ from __future__ import division, print_function, unicode_literals
 
 # set the desired pyglet mockup
 import sys
-sys.path.insert(0,'pyglet_mockup1')
+
+sys.path.insert(0, 'pyglet_mockup1')
 import pyglet
-assert pyglet.mock_level == 1 
+
+assert pyglet.mock_level == 1
 
 import pytest
 
 from cocos.director import director
 from cocos.scene import Scene
+
 director.init()
 
 rec = []
 
+
 class Test_run(object):
-    
+
     def test_0_initial_state(self):
         assert director.scene is None
         assert director.next_scene is None
@@ -25,27 +29,26 @@ class Test_run(object):
         scene0 = Scene()
         old_stack = list(director.scene_stack)
         director.run(scene0)
-        
+
         # check first run 
         assert director.scene is scene0
         assert director.next_scene is None
-        assert director.scene_stack == old_stack 
+        assert director.scene_stack == old_stack
 
         # a second run must be rejected, we don't want to call twice
         # event_loop.run
-##        scene1 = Scene()
-##
-##        pytest.raises(DirectorRunTwiceException, "director.run(scene1)")  
 
-        
+    ##        scene1 = Scene()
+    ##
+    ##        pytest.raises(DirectorRunTwiceException, "director.run(scene1)")
 
     def test_2_push_delegates_to_on_push(self):
         scene0 = director.scene
         scene1 = Scene()
-        
+
         # clear the mockup event recorder
         director._utest_recorded_events = []
-        
+
         director.push(scene1)
 
         # ... and check it called on_push with the correct parameters
@@ -70,7 +73,7 @@ class Test_run(object):
         scene2 = Scene()
 
         director.on_push(scene1)
-        
+
         # pyglet mockup 1 don't tickle on_draw, we call
         # directly so the push / pop operation completes
         director.on_draw()
@@ -91,10 +94,10 @@ class Test_run(object):
         director.on_draw()
 
         assert director.scene is scene0
-        
+
     def test_5_on_push_calls_on_enter_on_exit(self):
         global rec
-        
+
         scene0 = Scene()
         scene1 = Scene()
 
@@ -108,7 +111,7 @@ class Test_run(object):
 
         scene0.on_exit = on_exit
         scene1.on_enter = on_enter
-            
+
         rec = []
         director.on_push(scene0)
         # pyglet mockup 1 don't tickle on_draw, we call
@@ -119,12 +122,12 @@ class Test_run(object):
         director.on_push(scene1)
         director.on_draw()
 
-        assert rec[0]=='on_exit_called'
-        assert rec[1]=='on_enter_called'
+        assert rec[0] == 'on_exit_called'
+        assert rec[1] == 'on_enter_called'
 
     def test_6_on_pop_calls_on_enter_on_exit(self):
         global rec
-        
+
         scene0 = Scene()
         scene1 = Scene()
 
@@ -138,7 +141,7 @@ class Test_run(object):
 
         scene0.on_enter = on_enter
         scene1.on_exit = on_exit
-            
+
         rec = []
         director.on_push(scene0)
         # pyglet mockup 1 don't tickle on_draw, we call
@@ -152,16 +155,16 @@ class Test_run(object):
         director.on_pop()
         director.on_draw()
 
-        assert rec[0]=='on_exit_called'
-        assert rec[1]=='on_enter_called'
+        assert rec[0] == 'on_exit_called'
+        assert rec[1] == 'on_enter_called'
 
     def test_7_replace(self):
         global rec
-        
+
         scene0 = Scene()
         scene1 = Scene()
         scene2 = Scene()
-        
+
         def on_exit():
             global rec
             rec.append('on_exit_called')
@@ -186,17 +189,18 @@ class Test_run(object):
 
         # final scene ok
         assert director.scene is scene2
-        
+
         # old scene on_exit called, new scene on_enter called
-        assert rec[0]=='on_exit_called'
-        assert rec[1]=='on_enter_called'
+        assert rec[0] == 'on_exit_called'
+        assert rec[1] == 'on_enter_called'
 
         # underlaying scene ok
         director.on_pop()
         director.on_draw()
 
         assert director.scene is scene0
-        
+
+
 ##    def test_8_pop_from_empty_stack_termitate_app(self):
 
 
@@ -206,6 +210,7 @@ class TestRunningScene(object):
     This allows nodes to traverse up the tree and find the
     current running scene.
     """
+
     def test_0_replace(self):
         scene = Scene()
         director.run(scene)
@@ -250,6 +255,9 @@ class TestRunningScene(object):
 
         assert scene.parent is None
 
+
 class NotNone(object):
     pass
-not_None_value = NotNone()  
+
+
+not_None_value = NotNone()
