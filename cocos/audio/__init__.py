@@ -38,6 +38,8 @@ from __future__ import division, print_function, unicode_literals
 __all__ = ['SDL', 'pygame']
 
 import cocos
+from cocos.audio import music, pygame
+
 _working = True
 
 

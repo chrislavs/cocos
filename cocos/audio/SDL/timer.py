@@ -6,13 +6,9 @@
 __docformat__ = 'restructuredtext'
 __version__ = '$Id: $'
 
-
-import cocos.audio.SDL as SDL
-
 from ctypes import *
-# from . import dll
-from . import dll
-import cocos.audio.SDL as SDL
+
+from cocos.audio.SDL import dll
 
 SDL_GetTicks = dll.function(
     'SDL_GetTicks',
@@ -41,7 +37,7 @@ _SDL_SetTimer = dll.private_function(
     arg_types=[c_uint, _SDL_TimerCallback],
     return_type=c_int)
 
-_timercallback_ref = None   # Keep global to avoid possible GC
+_timercallback_ref = None  # Keep global to avoid possible GC
 
 
 def SDL_SetTimer(interval, callback):
@@ -101,7 +97,7 @@ _SDL_AddTimer = dll.private_function(
     arg_types=[c_uint, _SDL_NewTimerCallback, c_void_p],
     return_type=c_void_p)
 
-_timer_refs = {}        # Keep global to manage GC
+_timer_refs = {}  # Keep global to manage GC
 
 
 def SDL_AddTimer(interval, callback, param):
@@ -124,6 +120,7 @@ def SDL_AddTimer(interval, callback, param):
     :rtype: int
     :return: the timer ID
     """
+
     def _callback(interval, _ignored_param):
         return callback(interval, param)
 
@@ -133,6 +130,7 @@ def SDL_AddTimer(interval, callback, param):
         raise SDL.error.SDL_Exception(SDL.error.SDL_GetError())
     _timer_refs[result] = func
     return result
+
 
 _SDL_RemoveTimer = dll.private_function(
     'SDL_RemoveTimer',
