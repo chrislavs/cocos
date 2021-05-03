@@ -520,7 +520,7 @@ class Director(event.EventDispatcher):
     # Window Helper Functions
     #
     def get_window_size(self):
-        
+
         """Returns the size of the window
 
         If director.init(...) was called with autoscale=True it will return
