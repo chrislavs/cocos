@@ -117,10 +117,12 @@ from __future__ import division, print_function, unicode_literals
 
 __docformat__ = 'restructuredtext'
 
-
 import sys
 from os import getenv
 import warnings
+import os
+
+os.environ['LANG'] = 'en_US'
 
 import pyglet
 from pyglet import window, event
@@ -301,12 +303,12 @@ class Director(event.EventDispatcher):
         width = kwargs.get('width', self.window.width)
         height = kwargs.get('height', self.window.height)
         self.resizable = kwargs.get('resizable', False)
- 
+
         if self.autoscale:
             self._window_virtual_width = width
             self._window_virtual_height = height
             self._window_virtual_aspect = (
-                self._window_virtual_width / float(self._window_virtual_height))
+                    self._window_virtual_width / float(self._window_virtual_height))
             self._offset_x = 0
             self._offset_y = 0
 
@@ -512,13 +514,13 @@ class Director(event.EventDispatcher):
             self.scene.parent = None
             self.scene._handlers_enabled = True
             scene.on_enter()
-
         return old
 
     #
     # Window Helper Functions
     #
     def get_window_size(self):
+        print(self._usable_width)
         """Returns the size of the window
 
         If director.init(...) was called with autoscale=True it will return
@@ -540,14 +542,14 @@ class Director(event.EventDispatcher):
         """
         # this method will be replaced by _get_window_size_autoscale or
         # _get_window_size_no_autoscale when director.init(...) is called
-
+        # raise NotImplemented
         return self._usable_width, self._usable_height
 
     def _get_window_size_autoscale(self):
         return self._window_virtual_width, self._window_virtual_height
-        
+
     def _get_window_size_no_autoscale(self):
-        return self.window.width, self.window.height 
+        return self.window.width, self.window.height
 
     def get_virtual_coordinates(self, x, y):
         "placeholder, will be replaced"
@@ -597,25 +599,23 @@ class Director(event.EventDispatcher):
                 New height
         """
         # physical view size
-        pw, ph = 0,0
-        vw, vh = 0,0
+        pw, ph = 0, 0
+        vw, vh = 0, 0
         # viewportw, viewporth = self.window.get_viewport_size()
         # if viewportw > width:
         #     pw = viewportw
         #     ph = viewporth
         # vw, vh = self.window.get_viewport_size()
+        # print(vw,vh)
         #
+
         if sys.platform == 'darwin':
-            viewportw, viewporth = 1200, 1440
-            viewportw1, viewporth1 = 2880, 1800
+            viewportw, viewporth = self.window.get_viewport_size()
+            print(viewportw, viewporth)
             if viewportw > width:
                 pw = viewportw
                 ph = viewporth
                 vw, vh = viewportw, viewporth
-            elif viewportw1 > width:
-                pw = viewportw1
-                ph = viewporth1
-                vw, vh = viewportw1, viewporth1
         else:
             pw, ph = width, height
             vw, vh = self.get_window_size()
@@ -625,8 +625,8 @@ class Director(event.EventDispatcher):
         # usable width, height
         uw = int(min(pw, ph * v_ar))
         uh = int(min(ph, pw / v_ar))
-        ox = (pw-uw) // 2
-        oy = (ph-uh) // 2
+        ox = (pw - uw) // 2
+        oy = (ph - uh) // 2
         self._offset_x = ox
         self._offset_y = oy
         self._usable_width = uw
@@ -638,14 +638,15 @@ class Director(event.EventDispatcher):
             return
 
         self.dispatch_event("on_cocos_resize", self._usable_width, self._usable_height)
+        # print(self._usable_width)
 
         # eliminate ugly padding bands used to keep the aspect ratio trough resizes
         if self.resizable and (ox > 1 or oy > 1):
             pyglet.clock.schedule(self.post_resize_adjust)
 
         # dismiss the pyglet BaseWindow default 'on_resize' handler
-        window = vw, vh
-        return window
+        window_size = vw, vh
+        return window_size
 
     def post_resize_adjust(self, _):
         "resize to eliminate the filling bands introduced"
@@ -698,14 +699,15 @@ class Director(event.EventDispatcher):
         gl.glMatrixMode(gl.GL_MODELVIEW)
 
         gl.glLoadIdentity()
-        gl.gluLookAt(vw / 2.0, vh / 2.0, vh / 1.1566,   # eye
-                  vw / 2.0, vh / 2.0, 0,             # center
-                  0.0, 1.0, 0.0                      # up vector
-                  )
+        gl.gluLookAt(vw / 2.0, vh / 2.0, vh / 1.1566,  # eye
+                     vw / 2.0, vh / 2.0, 0,  # center
+                     0.0, 1.0, 0.0  # up vector
+                     )
 
     def set_projection2D(self):
         """Sets a 2D projection (ortho) covering all the window"""
         # called only for the side effect of setting matrices in pyglet
+        # print(self.window.on_resize(self._usable_width, self._usable_height))
         self.window.on_resize(self._usable_width, self._usable_height)
 
     #
@@ -732,6 +734,7 @@ class Director(event.EventDispatcher):
             gl.glHint(gl.GL_PERSPECTIVE_CORRECTION_HINT, gl.GL_NICEST)
         else:
             gl.glDisable(gl.GL_DEPTH_TEST)
+
 
 event_loop = pyglet.app.event_loop
 if not hasattr(event_loop, "event"):
