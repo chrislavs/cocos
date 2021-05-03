@@ -12,7 +12,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     strategy:
       matrix:
         python-version: [3.7]
@@ -35,7 +35,6 @@ jobs:
         python -m pip install py~=1.10.0
         python -m pip install setuptools~=54.2.0
         python -m pip install pygame~=1.9.6
-        python -m pip install libSDL
 
         #if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with flake8 (Not currently running)
