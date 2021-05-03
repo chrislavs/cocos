@@ -540,7 +540,8 @@ class Director(event.EventDispatcher):
         """
         # this method will be replaced by _get_window_size_autoscale or
         # _get_window_size_no_autoscale when director.init(...) is called
-        raise NotImplemented
+
+        return self._usable_width, self._usable_height
 
     def _get_window_size_autoscale(self):
         return self._window_virtual_width, self._window_virtual_height
