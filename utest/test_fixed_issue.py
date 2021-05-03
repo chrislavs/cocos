@@ -1,8 +1,7 @@
-import pygame
+# import pygame
 import sys
 import os
-from os import getenv
-
+os.environ['LANG'] = 'en_US'
 sys.path.insert(0, 'pyglet_mockup1')
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 import pyglet
@@ -10,7 +9,7 @@ import pyglet
 assert pyglet.mock_level == 1
 
 from cocos.director import director
-from cocos.audio.SDL import dll
+# from cocos.audio.SDL import dll
 
 director.init()
 
