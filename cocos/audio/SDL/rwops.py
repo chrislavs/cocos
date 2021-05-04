@@ -13,8 +13,7 @@ __version__ = '$Id: $'
 
 from ctypes import *
 
-from . import dll
-from . import constants
+from cocos.audio.SDL import dll
 
 _rwops_p = POINTER('SDL_RWops')
 _seek_fn = CFUNCTYPE(c_int, _rwops_p, c_int, c_int)

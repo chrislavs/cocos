@@ -13,8 +13,8 @@ import os
 
 import array as array
 import constants as constants
-from . import dll
-from . import rwops
+from cocos.audio.SDL import dll
+from cocos.audio.SDL import rwops
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../..'))
 _SDL_AudioSpec_fn = \
     CFUNCTYPE(POINTER(c_ubyte), POINTER(c_ubyte), POINTER(c_ubyte), c_int)
