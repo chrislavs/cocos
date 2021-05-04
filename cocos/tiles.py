@@ -144,7 +144,9 @@ class Resource(object):
         """Find all elements of the given class in this resource.
         """
         for k in self.contents:
+            print(k)
             if isinstance(self.contents[k], cls):
+                print(k)
                 yield (k, self.contents[k])
 
     def findall(self, cls, ns=''):
@@ -372,7 +374,7 @@ def load_tmx(filename):
     tiling_style = map.attrib['orientation']
 
     if tiling_style == "hexagonal":
-        hex_sidelenght = int(map.attrib["hexsidelength"])
+        hex_sidelength = int(map.attrib["hexsidelength"])
         # 'x' meant hexagons with top and bottom sides parallel to x axis,
         # 'y' meant hexagons with left and right sides paralel to y axis        
         s = map.attrib["staggeraxis"]
@@ -417,6 +419,9 @@ def load_tmx(filename):
 
     return resource
 
+
+tileset_tiles = {} ###
+
 def capture_tileset(map_path, tileset_tag, tileset_path, firstgid, tile_width, tile_height): 
     name = tileset_tag.attrib['name']
     image_tag = tileset_tag.find("image")
@@ -455,6 +460,7 @@ def capture_tileset(map_path, tileset_tag, tileset_path, firstgid, tile_width, t
             if 'source' in image_tag.attrib:
                 image_path = tmx_get_path(tileset_path, image_tag.attrib['source'])
                 image = pyglet.image.load(image_path)
+                tileset_tiles[local_id] = image_path ###
             else:
                 # malformed file missing "source" or very old file which
                 # embeds the image content in a <data> child node.

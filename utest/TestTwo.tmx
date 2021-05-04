@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="50" height="30" tilewidth="64" tileheight="64">
+    <tileset firstgid="9" name="many things" tilewidth="5" tileheight="2" tilecount="2">
+        <tile id="1" type="First">
+            <image width="40" height="40" source="../test/car.png"/>
+        </tile>
+        <tile id="2" type="Second">
+            <image width="40" height="40" source="../test/fire.png"/>
+        </tile>
+        <tile id="3" type="Third">
+            <image width="40" height="40" source="../test/dinosaur.gif"/>
+        </tile>
+        <tile id="4" type="Fourth">
+            <image width="40" height="40" source="../samples/flag.png"/>
+        </tile>
+        <tile id="5" type="Fifth">
+            <image width="40" height="40" source="../samples/fire.jpg"/>
+        </tile>
+    </tileset>
+</map>
