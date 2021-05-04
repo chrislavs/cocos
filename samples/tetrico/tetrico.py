@@ -169,10 +169,16 @@ class OptionsMenu( Menu ):
         items.append( ToggleMenuItem('Show FPS:', self.on_show_fps, director.show_FPS) )
         items.append( MenuItem('Fullscreen', self.on_fullscreen) )
         items.append( MenuItem('Back', self.on_quit) )
+        items.append(
+            MenuItem("get window size", self.on_get_window_size, director._usable_width, director._usable_height))
         self.create_menu( items, shake(), shake_back() )
 
     def on_fullscreen( self ):
         director.window.set_fullscreen( not director.window.fullscreen )
+
+    def on_get_window_size(self, width, height):
+        print(width)
+        print(height)
 
     def on_quit( self ):
         self.parent.switch_to( 0 )
@@ -244,7 +250,7 @@ if __name__ == "__main__":
     pyglet.resource.reindex()
     font.add_directory('data')
 
-    director.init( resizable=False, width=600, height=720 )
+    director.init( autoscale=False, width=600, height=720 )
     scene = Scene()
     scene.add( MultiplexLayer(
                     MainMenu(), 
