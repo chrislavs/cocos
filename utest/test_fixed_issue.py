@@ -11,6 +11,7 @@ assert pyglet.mock_level == 1
 from cocos.director import director
 from cocos.audio.SDL import dll
 
+
 director.init()
 
 
@@ -20,8 +21,13 @@ class Test_Director(object):
         # window = 0
         assert director.window.width == 640
         assert director.window.height == 480
+        # if sys.platform == 'darwin':
+        #     window = director.window.get_viewport_size()
+        # else:
+        #     window = director.get_window_size()
+        # print(window)
         if sys.platform == 'darwin':
-            window = 1200, 1440
+            window = (director.window.width*2),(director.window.height*2)
         else:
             window = director.get_window_size()
         print(window)
