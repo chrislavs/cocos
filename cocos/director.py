@@ -608,9 +608,11 @@ class Director(event.EventDispatcher):
         # vw, vh = self.window.get_viewport_size()
         # print(vw,vh)
         #
-
+        pw, ph = 0, 0
+        vw, vh = 0, 0
         if sys.platform == 'darwin':
-            viewportw, viewporth = self.window.get_viewport_size()
+            viewportw, viewporth = (director.window.width * 2), \
+                                   (director.window.height * 2)
             print(viewportw, viewporth)
             if viewportw > width:
                 pw = viewportw
@@ -619,6 +621,17 @@ class Director(event.EventDispatcher):
         else:
             pw, ph = width, height
             vw, vh = self.get_window_size()
+
+        # if sys.platform == 'darwin':
+        #     viewportw, viewporth = self.window.get_viewport_size()
+        #     print(viewportw, viewporth)
+        #     if viewportw > width:
+        #         pw = viewportw
+        #         ph = viewporth
+        #         vw, vh = viewportw, viewporth
+        # else:
+        #     pw, ph = width, height
+        #     vw, vh = self.get_window_size()
 
         # desired aspect ratio
         v_ar = vw / float(vh)

@@ -1,7 +1,8 @@
 import pygame
 import sys
 import os
-sys.path.insert(0,'pyglet_mockup1')
+
+sys.path.insert(0, 'pyglet_mockup1')
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 import pyglet
 
@@ -27,6 +28,7 @@ class Test_Director(object):
         assert director.window.width == 640
         assert director.window.height == 480
         assert director.scaled_resize_window(director.window.width, director.window.width) == window
+
 
 def test_pygame_version():
     v = pygame.__version__
