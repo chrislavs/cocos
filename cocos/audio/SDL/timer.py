@@ -7,7 +7,7 @@ __docformat__ = 'restructuredtext'
 __version__ = '$Id: $'
 
 from ctypes import *
-from . import dll
+from cocos.audio.SDL import dll
 from cocos.audio import SDL
 
 SDL_GetTicks = dll.function(
