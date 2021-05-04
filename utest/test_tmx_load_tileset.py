@@ -9,14 +9,18 @@ from __future__ import division, print_function, unicode_literals
 
 import sys
 import os
+# import pyglet
+# assert pyglet.mock_level == 1
+# sys.path.insert(0, 'pyglet_mockup1')
+# sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-#sys.path.insert(0, 'pyglet_mockup1')
-#sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
-import pyglet
-#assert pyglet.mock_level == 1
-
+import sys
+import os
+os.environ['LANG'] = 'en_US'
+if sys.path.__contains__('pyglet_mockup1'):
+    sys.path.remove('pyglet_mockup1')
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 from cocos.tiles import load_tmx, tileset_tiles
-
 
 class Test_Tmx_Load_Tileset(object):
 
