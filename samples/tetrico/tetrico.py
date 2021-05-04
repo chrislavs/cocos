@@ -250,7 +250,7 @@ if __name__ == "__main__":
     pyglet.resource.reindex()
     font.add_directory('data')
 
-    director.init( resizable=False, width=600, height=720 )
+    director.init( autoscale=False, width=600, height=720 )
     scene = Scene()
     scene.add( MultiplexLayer(
                     MainMenu(), 

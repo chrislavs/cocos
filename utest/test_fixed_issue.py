@@ -33,10 +33,10 @@ class Test_Director(object):
         print(window)
 
         assert director.scaled_resize_window\
-                   (director.window.width, director.window.width) == window
+                   (director.window.width, director.window.height) == window
 
     def test_get_window_size(self):
-        default_size = director.window.width, director.window.height
+        default_size = director._usable_width, director._usable_height
         assert director.get_window_size() == default_size
 
 
