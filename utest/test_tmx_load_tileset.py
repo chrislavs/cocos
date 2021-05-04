@@ -7,17 +7,16 @@ Tests being run with pytest.
 
 from __future__ import division, print_function, unicode_literals
 
-import pygame
 import sys
 import os
-os.environ['LANG'] = 'en_US'
-sys.path.insert(0, 'pyglet_mockup1')
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
-import pyglet
 
-assert pyglet.mock_level == 1
-#import cocos.layer
+#sys.path.insert(0, 'pyglet_mockup1')
+#sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+import pyglet
+#assert pyglet.mock_level == 1
+
 from cocos.tiles import load_tmx, tileset_tiles
+
 
 class Test_Tmx_Load_Tileset(object):
 
