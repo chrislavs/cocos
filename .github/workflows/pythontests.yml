@@ -12,7 +12,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     strategy:
       matrix:
         python-version: [3.7]
@@ -36,13 +36,9 @@ jobs:
         python -m pip install setuptools~=54.2.0
         python -m pip install pygame~=1.9.6
         python -m pip install constants~=0.6.0
+        sudo apt-get install libsdl-image1.2:i386
+
         #if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-
-    - name: linux SDL package
-      run: |
-        sudo apt-get update
-        sudo apt-cache search libSDL-1.2.so
-
     - name: Lint with flake8 (Not currently running)
       run: |
         # stop the build if there are Python syntax errors or undefined names
