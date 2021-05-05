@@ -15,38 +15,36 @@ Tests being run with pytest.
 # sys.path.insert(0, '/cocos/tiles.py')
 # sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from cocos.tiles import load_tmx
-from cocos.tiles import get_tileset
-
+# from cocos.tiles import load_tmx
+# from cocos.tiles import get_tileset
+import cocos.tiles as tile
 
 class Test_Tmx_Load_Tileset(object):
 
     # Test contains multiple tilesets
     def test_load_tmx_file_one(self):
-        load_tmx("../clavallee_tests/testOne.tmx")
+        tile.load_tmx("../clavallee_tests/testOne.tmx")
         print()
-        tiles = get_tileset()
-        # print(tileset_tiles)
-        assert tiles[1] == '../clavallee_tests\\../utest/white4x3.png'
-        assert tiles[2] == '../clavallee_tests\\../utest/white4x3.png'
-        assert tiles[3] == '../clavallee_tests\\../utest/white4x3.png'
-        assert tiles[4] == '../clavallee_tests\\../utest/white4x3.png'
-        assert tiles[5] == '../clavallee_tests\\../utest/white4x3.png'
-        assert tiles[6] == '../clavallee_tests\\../utest/white4x3.png'
-        assert tiles[7] == '../clavallee_tests\\../utest/white4x3.png'
-        assert tiles[8] == '../clavallee_tests\\../utest/white4x3.png'
-        assert tiles[9] == '../clavallee_tests\\../utest/white4x3.png'
-        assert tiles[10] == '../clavallee_tests\\../utest/white4x3.png'
+        print(tile.tileset_tiles)
+        assert tile.tileset_tiles[1] == '../clavallee_tests\\../utest/white4x3.png'
+        assert tile.tileset_tiles[2] == '../clavallee_tests\\../utest/white4x3.png'
+        assert tile.tileset_tiles[3] == '../clavallee_tests\\../utest/white4x3.png'
+        assert tile.tileset_tiles[4] == '../clavallee_tests\\../utest/white4x3.png'
+        assert tile.tileset_tiles[5] == '../clavallee_tests\\../utest/white4x3.png'
+        assert tile.tileset_tiles[6] == '../clavallee_tests\\../utest/white4x3.png'
+        assert tile.tileset_tiles[7] == '../clavallee_tests\\../utest/white4x3.png'
+        assert tile.tileset_tiles[8] == '../clavallee_tests\\../utest/white4x3.png'
+        assert tile.tileset_tiles[9] == '../clavallee_tests\\../utest/white4x3.png'
+        assert tile.tileset_tiles[10] == '../clavallee_tests\\../utest/white4x3.png'
 
     # Test obtaining image sources from different locations, ensuring they load properly
     def test_load_tmx_file_two(self):
-        load_tmx("../clavallee_tests/TestTwo.tmx")
+        tile.load_tmx("../clavallee_tests/TestTwo.tmx")
         print()
-        tiles = get_tileset()
-        # print(tileset_tiles)
-        assert tiles[1] == '../clavallee_tests\\../test/car.png'
-        assert tiles[2] == '../clavallee_tests\\../test/fire.png'
-        assert tiles[3] == '../clavallee_tests\\../test/dinosaur.gif'
-        assert tiles[4] == '../clavallee_tests\\../samples/flag.png'
-        assert tiles[5] == '../clavallee_tests\\../samples/fire.jpg'
+        print(tile.tileset_tiles)
+        assert tile.tileset_tiles[1] == '../clavallee_tests\\../test/car.png'
+        assert tile.tileset_tiles[2] == '../clavallee_tests\\../test/fire.png'
+        assert tile.tileset_tiles[3] == '../clavallee_tests\\../test/dinosaur.gif'
+        assert tile.tileset_tiles[4] == '../clavallee_tests\\../samples/flag.png'
+        assert tile.tileset_tiles[5] == '../clavallee_tests\\../samples/fire.jpg'
 
