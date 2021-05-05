@@ -466,7 +466,10 @@ def capture_tileset(map_path, tileset_tag, tileset_path, firstgid, tile_width, t
                 msg = fmt % (name, local_id)
                 raise(TmxUnsupportedVariant(msg))
             tile_image = texture_bin.add(image)
-            tileset[gid] = tileset.get_tile(gid, tile_image)
+            try:
+                tileset[gid] = tileset.get_tile(gid, tile_image)
+            except Exception:
+                pass
         
         # add properties to tiles in the tileset
         tile = tileset[gid]
@@ -474,9 +477,6 @@ def capture_tileset(map_path, tileset_tag, tileset_path, firstgid, tile_width, t
         tile.properties = property_values
         tile.property_types = property_types
     return tileset
-
-def get_tileset():
-    return tileset_tiles
 
 def capture_layer(layer, tilesets, width, height, cell_cls, layer_cls, tile_width, tile_height):
     data = layer.find('data')
