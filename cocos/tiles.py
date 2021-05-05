@@ -466,10 +466,7 @@ def capture_tileset(map_path, tileset_tag, tileset_path, firstgid, tile_width, t
                 msg = fmt % (name, local_id)
                 raise(TmxUnsupportedVariant(msg))
             tile_image = texture_bin.add(image)
-            try:
-                tileset[gid] = tileset.get_tile(gid, tile_image)
-            except Exception:
-                pass
+            tileset[gid] = tileset.get_tile(gid, tile_image)
         
         # add properties to tiles in the tileset
         tile = tileset[gid]
@@ -760,11 +757,14 @@ class TileSet(dict):
     def get_tile(self, gid, texture_region):
         # Set texture clamping to avoid mis-rendering subpixel edges
         tx = texture_region.get_texture()
-        gl.glBindTexture(tx.target,  tx.id)
-        gl.glTexParameteri(tx.target,
-                           gl.GL_TEXTURE_WRAP_S, gl.GL_CLAMP_TO_EDGE)
-        gl.glTexParameteri(tx.target,
-                           gl.GL_TEXTURE_WRAP_T, gl.GL_CLAMP_TO_EDGE)
+        try:
+            gl.glBindTexture(tx.target,  tx.id)
+            gl.glTexParameteri(tx.target,
+                            gl.GL_TEXTURE_WRAP_S, gl.GL_CLAMP_TO_EDGE)
+            gl.glTexParameteri(tx.target,
+                            gl.GL_TEXTURE_WRAP_T, gl.GL_CLAMP_TO_EDGE)
+        except Exception:
+            pass
 
         return Tile(gid, {}, texture_region)
 
