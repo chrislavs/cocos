@@ -6,16 +6,19 @@ Tests being run with pytest.
 """
 
 #from __future__ import division, print_function, unicode_literals
-
-
 # os.environ['LANG'] = 'en_US'
 # sys.path.insert(0, 'pyglet_mockup1')
 # sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
-
 #assert pyglet.mock_level == 1
 #sys.path.insert(0, 'pyglet_mockup1')
-
 #sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+
+import os
+import sys
+file_path = os.path.abspath(__file__)
+cur_path = os.path.dirname(file_path)
+project_path = os.path.dirname(cur_path)
+sys.path.append(project_path)
 
 from cocos.tiles import load_tmx, tileset_tiles
 
