@@ -597,32 +597,15 @@ class Director(event.EventDispatcher):
                 New width
             `height` : Integer
                 New height
-        """
+        - macOS tentative fixed.
         # physical view size
-        pw, ph = 0, 0
-        vw, vh = 0, 0
         # viewportw, viewporth = self.window.get_viewport_size()
         # if viewportw > width:
         #     pw = viewportw
         #     ph = viewporth
         # vw, vh = self.window.get_viewport_size()
         # print(vw,vh)
-        #
-        pw, ph = 0, 0
-        vw, vh = 0, 0
-        if sys.platform == 'darwin':
-            viewportw, viewporth = (director.window.width * 2), \
-                                   (director.window.height * 2)
-            print(viewportw, viewporth)
-            if viewportw > width:
-                pw = viewportw
-                ph = viewporth
-                vw, vh = viewportw, viewporth
-        else:
-            pw, ph = width, height
-            vw, vh = self.get_window_size()
-
-        # if sys.platform == 'darwin':
+         # if sys.platform == 'darwin':
         #     viewportw, viewporth = self.window.get_viewport_size()
         #     print(viewportw, viewporth)
         #     if viewportw > width:
@@ -632,6 +615,23 @@ class Director(event.EventDispatcher):
         # else:
         #     pw, ph = width, height
         #     vw, vh = self.get_window_size()
+
+        """
+
+        #
+        pw, ph = 0, 0
+        vw, vh = 0, 0
+        if sys.platform == 'darwin':
+            viewportw, viewporth = (self.window.width * 2), \
+                                   (self.window.height * 2)
+            print(viewportw, viewporth)
+            if viewportw > width:
+                pw = viewportw
+                ph = viewporth
+                vw, vh = viewportw, viewporth
+        else:
+            pw, ph = width, height
+            vw, vh = self.get_window_size()
 
         # desired aspect ratio
         v_ar = vw / float(vh)
