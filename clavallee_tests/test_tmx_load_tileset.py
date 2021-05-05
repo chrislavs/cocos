@@ -13,13 +13,8 @@ Tests being run with pytest.
 #sys.path.insert(0, 'pyglet_mockup1')
 #sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-import os
 import sys
-file_path = os.path.abspath(__file__)
-cur_path = os.path.dirname(file_path)
-project_path = os.path.dirname(cur_path)
-sys.path.append(project_path)
-
+sys.path.append("/cocos/tiles.py")
 from cocos.tiles import load_tmx, tileset_tiles
 
 
