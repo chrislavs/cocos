@@ -61,7 +61,7 @@ from cocos.director import director
 from cocos.rect import Rect
 
 unicode = six.text_type
-
+tileset_tiles = {} ###
 
 class ResourceError(Exception):
     pass
@@ -419,9 +419,6 @@ def load_tmx(filename):
 
     return resource
 
-
-tileset_tiles = {} ###
-
 def capture_tileset(map_path, tileset_tag, tileset_path, firstgid, tile_width, tile_height): 
     name = tileset_tag.attrib['name']
     image_tag = tileset_tag.find("image")
@@ -477,6 +474,9 @@ def capture_tileset(map_path, tileset_tag, tileset_path, firstgid, tile_width, t
         tile.properties = property_values
         tile.property_types = property_types
     return tileset
+
+def get_tileset():
+    return tileset_tiles
 
 def capture_layer(layer, tilesets, width, height, cell_cls, layer_cls, tile_width, tile_height):
     data = layer.find('data')
