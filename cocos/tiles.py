@@ -763,7 +763,7 @@ class TileSet(dict):
                             gl.GL_TEXTURE_WRAP_S, gl.GL_CLAMP_TO_EDGE)
             gl.glTexParameteri(tx.target,
                             gl.GL_TEXTURE_WRAP_T, gl.GL_CLAMP_TO_EDGE)
-        except Exception:
+        except:
             pass
 
         return Tile(gid, {}, texture_region)
