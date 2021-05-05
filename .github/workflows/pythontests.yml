@@ -49,3 +49,7 @@ jobs:
           pytest
           #pytest -vv test_fixed_issue.py
       working-directory: utest
+    - name: Test with pytest not using pyglet_mockup
+      run: |
+          pytest
+      working-directory: clavallee_tests
