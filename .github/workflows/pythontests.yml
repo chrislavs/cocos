@@ -28,7 +28,7 @@ jobs:
       run: |
         sudo dpkg --add-architecture i386
         sudo apt-get update
-        sudo apt-get install (libSDL-1.2.so)debian:i386
+        sudo apt-get install libsdldebian:i386
 
     - name: Install dependencies
       run: |
