@@ -26,8 +26,9 @@ jobs:
 
     - name: setting up libSDL-1.2-0-32bit
       run: |
+        sudo dpkg --add-architecture i386
         sudo apt-get update
-        sudo apt-get install libsdl-image1.2:i386
+        sudo apt-get install libsdl1.2debian:i386
 
     - name: Install dependencies
       run: |
