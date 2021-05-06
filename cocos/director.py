@@ -617,8 +617,13 @@ class Director(event.EventDispatcher):
         #     vw, vh = self.get_window_size()
 
         """
+        # pw, ph = width, height
+        # viewportw, viewporth = self.window.get_viewport_size()
+        # if viewportw > width:
+        #     pw = viewportw
+        #     ph = viewporth
+        # vw, vh = self.window.get_viewport_size()
 
-        #
         pw, ph = 0, 0
         vw, vh = 0, 0
         if sys.platform == 'darwin':
