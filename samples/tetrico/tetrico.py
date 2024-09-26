@@ -14,6 +14,7 @@ from cocos.actions import *
 from cocos.sprite import *
 from cocos.menu import *
 from cocos.text import *
+from cocos.text import *
 
 import pyglet
 from pyglet import gl, font

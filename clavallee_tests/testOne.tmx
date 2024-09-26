@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="50" height="30" tilewidth="64" tileheight="64">
+    <tileset firstgid="8" name="things" tilewidth="5" tileheight="2" tilecount="2">
+        <tile id="1" type="First">
+            <image width="40" height="40" source="../utest/white4x3.png"/>
+        </tile>
+        <tile id="2" type="Second">
+            <image width="40" height="40" source="../utest/white4x3.png"/>
+        </tile>
+        <tile id="3" type="Third">
+            <image width="40" height="40" source="../utest/white4x3.png"/>
+        </tile>
+        <tile id="4" type="Fourth">
+            <image width="40" height="40" source="../utest/white4x3.png"/>
+        </tile>
+        <tile id="5" type="Fifth">
+            <image width="40" height="40" source="../utest/white4x3.png"/>
+        </tile>
+    </tileset>
+    <tileset firstgid="10" name="more things" tilewidth="5" tileheight="2" tilecount="2">
+        <tile id="6" type="First">
+            <image width="40" height="40" source="../utest/white4x3.png"/>
+        </tile>
+        <tile id="7" type="Second">
+            <image width="40" height="40" source="../utest/white4x3.png"/>
+        </tile>
+        <tile id="8" type="Third">
+            <image width="40" height="40" source="../utest/white4x3.png"/>
+        </tile>
+        <tile id="9" type="Fourth">
+            <image width="40" height="40" source="../utest/white4x3.png"/>
+        </tile>
+        <tile id="10" type="Fifth">
+            <image width="40" height="40" source="../utest/white4x3.png"/>
+        </tile>
+    </tileset>
+</map>
